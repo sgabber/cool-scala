@@ -11,28 +11,31 @@ object Anagrams {
       println(value)
       val out = anagram(value)
 
-      val lines = convertToListAnagrams(out)
+      val lines = out.map(anagramToString)
 
-      fileWrite("/tmp/ans.txt", lines)
-    }
-  }
-
-  private def convertToListAnagrams(out: Vector[List[Vector[String]]]) = {
-    out.map { anagram =>
-      //to string
-      anagram.map(word => word.mkString("[", ",", "]")).mkString("(", ",", ")\n")
+      lines.take(10).foreach(println)
+      //fileWrite("/tmp/ans.txt", lines)
     }
   }
 
   /**
-   * Creates the smallest
+   *
+   * @param anagram a single anagram
+   * @return the string representation of the anagram
+   *         each possible word for a single spot is listed in square brackets and basically
+   *         the anagram is a list of lists of possible words in round brackets
+   */
+  private def anagramToString(anagram: List[Vector[String]]) = anagram.map(word => word.mkString("[", ",", "]")).mkString("(", ",", ")")
+
+
+  /**
+   * Creates the smallest possible list of anagrams from a string
    *
    * @param phrase a phrase in natural language
    *
-   * @return a vector of lists of strings' vectors
-   *         each vector is an anagram
-   *         each list is a phrase
-   *         each vector contains a list of words made by the same letters
+   * @return a vector of anagrams
+   *         each list contains a single anagram
+   *         each vector inside the list contains a list of words made by the same letters
    */
   def anagram(phrase: String): Vector[List[Vector[String]]] = {
     val letters = phrase.toLowerCase().filter(('a' to 'z').contains(_))
