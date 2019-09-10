@@ -1,31 +1,19 @@
-package it.sga.coolscala
+package it.sga.coolscala.anagrams
 
 import scala.io.Source
 
 
 object Anagrams {
 
-  def main(args: Array[String]): Unit = {
-    timeExec {
-      val value = "al formaggio".filter(('a' to 'z').contains(_))
-      println(value)
-      val out = anagram(value)
-
-      val lines = out.map(anagramToString)
-
-      lines.take(10).foreach(println)
-      //fileWrite("/tmp/ans.txt", lines)
-    }
-  }
-
   /**
    *
    * @param anagram a single anagram
+   *
    * @return the string representation of the anagram
    *         each possible word for a single spot is listed in square brackets and basically
    *         the anagram is a list of lists of possible words in round brackets
    */
-  private def anagramToString(anagram: List[Vector[String]]) = anagram.map(word => word.mkString("[", ",", "]")).mkString("(", ",", ")")
+  def anagramToString(anagram: List[Vector[String]]): String = anagram.map(word => word.mkString("[", ",", "]")).mkString("(", ",", ")")
 
 
   /**
@@ -40,11 +28,8 @@ object Anagrams {
   def anagram(phrase: String): Vector[List[Vector[String]]] = {
     val letters = phrase.toLowerCase().filter(('a' to 'z').contains(_))
     val prime = mapToPrime(letters)
-    println(prime)
     val anagrams = toAnagram(prime, dict.keys.filter(word => prime % word == 0).toVector)
-    anagrams.map {
-      _.map(dict)
-    }
+    anagrams.map(_.map(dict)) // converts the list of BigInts to a list of lists of possible words indexed by the number
   }
 
   /**
@@ -71,9 +56,7 @@ object Anagrams {
   /**
    * maps primes to alphabet letters
    */
-  val primesMap: Map[Char, BigInt] = {
-    ('a' to 'z').zip(listPrimes(2, 26)).toMap
-  }
+  val primesMap: Map[Char, BigInt] = ('a' to 'z').zip(listPrimes(2, 26)).toMap
 
   /**
    * Each letter is represented by a prime number (see primesMap)
@@ -84,9 +67,7 @@ object Anagrams {
    *
    * @return a prime number representing the phrase
    */
-  def mapToPrime(letters: String): BigInt = {
-    letters.map(primesMap).product
-  }
+  def mapToPrime(letters: String): BigInt = letters.map(primesMap).product
 
   def listPrimes(n: BigInt, count: BigInt): List[BigInt] = {
     if (count == 0) List()
@@ -94,9 +75,7 @@ object Anagrams {
     else listPrimes(n + 1, count)
   }
 
-  def isPrime(i: BigInt): Boolean = {
-    !(2 to i.toInt / 2).exists(i % _ == 0)
-  }
+  def isPrime(i: BigInt): Boolean = !(2 to i.toInt / 2).exists(i % _ == 0)
 
   val dict: Map[BigInt, Vector[String]] = Source.fromResource("660000_parole_italiane.txt")
     .getLines().toVector.groupBy(mapToPrime)
