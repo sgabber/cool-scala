@@ -14,7 +14,10 @@ A program that, given a string and the path to a dictionary,
 computes all the possible anagrams of the string on the dictionary.
 It works by converting the words to prime numbers
 (each letter is a prime number, the word is the product of the letters) 
-and then
+and then recursively find all the possible sequences of words 
+represented by prime numbers
+that multiplied give exactly the input phrase (prime number)
+then getting all those bigints  lists and converting them back to words.
 
 ### Chess:
 Common problems on the chessboard.
@@ -22,4 +25,11 @@ Common problems on the chessboard.
 
 ### Fizzbuzz:
 Short implementation of the famous fizzbuzz test
+
+### Fibonacci:
+Three implementations for the fibonacci sequence.
+The first looks exactly like the mathematical definition, it is beautiful but slow.
+Then I implemented two more versions that return the full fibonacci numbers' list:
+one faster (still recursive) and the last equally faster but tail recursive,
+therefore it behaves like an iterative one in terms of heap memory 
 

@@ -16,7 +16,13 @@ package object coolscala {
     val t0 = System.nanoTime()
     val ret: B = f
     val t1 = System.nanoTime()
-    println("elapsed time: " + (t1 - t0) / 1000000000.0 + "s")
+    val time = t1 - t0
+    if (time / 10000L < 1)
+      println("elapsed time: " + time / 1000.0 + "microsecond")
+    else if (time / 10000000L < 1)
+      println("elapsed time: " + time / 1000000.0 + "ms")
+    else
+      println("elapsed time: " + time / 1000000000.0 + "s")
     ret
   }
 
