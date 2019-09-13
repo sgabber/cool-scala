@@ -4,16 +4,13 @@ import scala.io.Source
 
 object AnagramsRevenge {
 
-  val words = "prova le"
+  val words = "oof arb"
 
-  val dict = Source.fromResource("660000_parole_italiane.txt").getLines().toList
+  val dict: List[String] = Source.fromResource("660000_parole_italiane.txt").getLines().toList
 
-  def main(args: Array[String]): Unit = {
-    words.permutations.foreach { w: String =>
-      if (w.split(" ").forall(dict.contains(_)))
-        println(w)
-    }
-  }
+  def anagrams(str: String): Iterator[String] = str.permutations.filter(_.split(" ").forall(dict.contains(_)))
+
+  def main(args: Array[String]): Unit = anagrams(words).foreach(println)
 
 
 }

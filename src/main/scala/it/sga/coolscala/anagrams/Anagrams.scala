@@ -1,7 +1,8 @@
 package it.sga.coolscala.anagrams
 
 import scala.io.Source
-
+import it.sga.coolscala.primes.PrimesUtils._
+import it.sga.coolscala._
 
 object Anagrams {
 
@@ -36,6 +37,22 @@ object Anagrams {
   }
 
   /**
+   * creates a cartesian product of all the lists of words with the same letters
+   * to obtain the final list of anagrams
+   *
+   * @param singleAnagram a single line of anagrams [ [ba,ab],[po]
+   *
+   * @return a list with the string representation of all the possible anagrams ["ba po","ab po"]
+   */
+  def getAnagramCombinations(singleAnagram: List[Vector[String]]): List[String] = {
+    singleAnagram.foldLeft(List[String]("=>")) { (acc, elem) =>
+      (acc cross elem).map(x => x._1 + " " + x._2).toList
+    }
+
+  }
+
+
+  /**
    * Recursive function.
    *
    * @param phrase  the phrase to anagram
@@ -56,10 +73,6 @@ object Anagrams {
     }
   }
 
-  /**
-   * maps primes to alphabet letters thus {a->2, b->3, c->5,....}
-   */
-  val primesMap: Map[Char, BigInt] = ('a' to 'z').zip(listPrimesWithSieve(26)).toMap
 
   /**
    * Each letter is represented by a prime number (see primesMap)
@@ -73,31 +86,9 @@ object Anagrams {
   def mapToPrime(letters: String): BigInt = letters.map(primesMap).product
 
   /**
-   * representation of all natural numbers starting from x
-   *
-   * @param x beginning of the stream of natural numbers
-   *
-   * @return a stream starting with x
+   * maps primes to alphabet letters thus {a->2, b->3, c->5,....}
    */
-  def next(x: BigInt): Stream[BigInt] = x #:: next(x + 1)
-
-  /**
-   * algorithm that computes all the primes
-   *
-   * @param in stream of natural numbers
-   *
-   * @return the same input list containing only primes
-   */
-  def sieve(in: Stream[BigInt]): Stream[BigInt] = in.head #:: sieve(in.tail.filter(_ % in.head != 0))
-
-  /**
-   * starting from 2 gets all the primes in the sieve stream
-   *
-   * @param count the number of primes required
-   *
-   * @return a list of the first *count* primes
-   */
-  def listPrimesWithSieve(count: BigInt): List[BigInt] = sieve(next(2)).take(count.toInt).toList
+  val primesMap: Map[Char, BigInt] = ('a' to 'z').zip(listPrimes(26)).toMap
 
   /**
    * Loads dictionary from path on local machine

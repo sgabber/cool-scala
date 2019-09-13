@@ -5,6 +5,20 @@ import java.io.{BufferedWriter, File, FileWriter}
 package object coolscala {
 
   /**
+   * thanks to https://stackoverflow.com/questions/14740199/cross-product-in-scala
+   *
+   * Makes it possible to create a cartesian product between two Traversables
+   *
+   * @param thisOne other traversable
+   * @tparam T type of data contained in traversables
+   */
+  implicit class Crossable[T](thisOne: Traversable[T]) {
+    def cross[T2](that: Traversable[T2]): Traversable[(T, T2)] = for {x <- thisOne; y <- that} yield (x, y)
+
+  }
+
+
+  /**
    * calculates time of execution. Pass in the function with the parameters like this
    *
    * @param f expression to evaluate
