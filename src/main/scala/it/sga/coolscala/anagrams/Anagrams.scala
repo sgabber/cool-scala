@@ -23,8 +23,9 @@ object Anagrams {
    * @param phrase a phrase in natural language
    *
    * @return a vector of anagrams
-   *         each list contains a single anagram
-   *         each vector inside the list contains a list of words made by the same letters
+   *         structure like this: Anagrams<Anagram<BigintWord<WordInLetters>>>
+   *         the vector contains all anagrams, each anagram contains a list of "words" 
+   *         but each "word" is actually a vector of words made by the same letters
    */
   def anagram(phrase: String, dictPath: String): Vector[List[Vector[String]]] = {
     val dict = Anagrams.loadDictionary(dictPath)
@@ -65,7 +66,7 @@ object Anagrams {
    *
    * Maps a phrase to a prime number by converting each letter to a prime number and multiplying them
    *
-   * @param letters the letter composing the phrase
+   * @param letters the letters composing the phrase
    *
    * @return a prime number representing the phrase
    */
