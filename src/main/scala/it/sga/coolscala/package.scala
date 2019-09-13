@@ -1,8 +1,8 @@
-package it.sga.coolscala
+package it.sga
 
 import java.io.{BufferedWriter, File, FileWriter}
 
-package object anagrams {
+package object coolscala {
 
   /**
    * calculates time of execution. Pass in the function with the parameters like this

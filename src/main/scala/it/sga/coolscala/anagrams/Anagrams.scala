@@ -1,6 +1,5 @@
 package it.sga.coolscala.anagrams
 
-import scala.annotation.tailrec
 import scala.io.Source
 
 
@@ -14,7 +13,8 @@ object Anagrams {
    *         each possible word for a single spot is listed in square brackets and basically
    *         the anagram is a list of lists of possible words in round brackets
    */
-  def anagramToString(anagram: List[Vector[String]]): String = anagram.map(word => word.mkString("[", ",", "]")).mkString("(", ",", ")")
+  def anagramToString(anagram: List[Vector[String]]): String =
+    anagram.map(word => word.mkString("[", ",", "]")).mkString("(", ",", ")")
 
 
   /**
@@ -26,7 +26,8 @@ object Anagrams {
    *         each list contains a single anagram
    *         each vector inside the list contains a list of words made by the same letters
    */
-  def anagram(phrase: String): Vector[List[Vector[String]]] = {
+  def anagram(phrase: String, dictPath: String): Vector[List[Vector[String]]] = {
+    val dict = Anagrams.loadDictionary(dictPath)
     val letters = phrase.toLowerCase().filter(('a' to 'z').contains(_))
     val prime = mapToPrime(letters)
     val anagrams = toAnagram(prime, dict.keys.filter(word => prime % word == 0).toVector)
@@ -55,7 +56,7 @@ object Anagrams {
   }
 
   /**
-   * maps primes to alphabet letters
+   * maps primes to alphabet letters thus {a->2, b->3, c->5,....}
    */
   val primesMap: Map[Char, BigInt] = ('a' to 'z').zip(listPrimesWithSieve(26)).toMap
 
@@ -97,6 +98,17 @@ object Anagrams {
    */
   def listPrimesWithSieve(count: BigInt): List[BigInt] = sieve(next(2)).take(count.toInt).toList
 
-  val dict: Map[BigInt, Vector[String]] = Source.fromResource("660000_parole_italiane.txt")
-    .getLines().toVector.groupBy(mapToPrime)
+  /**
+   * Loads dictionary from path on local machine
+   *
+   * @param path path to dictionary from localmachine
+   *
+   * @return map of words converted to bigints -> list of words sharing the same bigint conversion
+   */
+  def loadDictionary(path: String): Map[BigInt, Vector[String]] = {
+    val source = Source.fromFile(path)
+    val dict = source.getLines().toVector.groupBy(mapToPrime)
+    source.close()
+    dict
+  }
 }

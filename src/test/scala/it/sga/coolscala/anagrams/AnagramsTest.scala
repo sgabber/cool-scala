@@ -1,6 +1,7 @@
 package it.sga.coolscala.anagrams
 
 import org.scalatest.FunSuite
+import it.sga.coolscala._
 
 import scala.annotation.tailrec
 
@@ -22,6 +23,10 @@ class AnagramsTest extends FunSuite {
 
   }
 
+  test("anagram of tre ") {
+    Anagrams.anagram("alto", "./src/main/resources/660000_parole_italiane.txt").map(Anagrams.anagramToString) == Vector("([lo],[at,ta])", "([to],[al,la])", "([alto,lato])")
+  }
+
 
   def listPrimes(n: BigInt, count: BigInt): List[BigInt] = {
     listPrimes(List(), n, count)
@@ -29,8 +34,8 @@ class AnagramsTest extends FunSuite {
 
   @tailrec
   final def listPrimes(acc: List[BigInt], n: BigInt, count: BigInt): List[BigInt] = {
-    if(count%1000==0) println(".")
-    else if(count%100==0) print(".")
+    if (count % 1000 == 0) println(".")
+    else if (count % 100 == 0) print(".")
     if (count <= 0) acc else {
       val cpl = if (isPrime(n)) (n, count - 1)
       else (BigInt(0), count)
