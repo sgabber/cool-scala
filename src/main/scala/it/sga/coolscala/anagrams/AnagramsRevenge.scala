@@ -1,16 +1,30 @@
 package it.sga.coolscala.anagrams
 
+import it.sga.coolscala._
+
 import scala.io.Source
 
 object AnagramsRevenge {
 
-  val words = "oof arb"
+  val words = "panino"
 
-  val dict: List[String] = Source.fromResource("660000_parole_italiane.txt").getLines().toList
+  val dict: List[String] = Source.fromResource("60000_parole_italiane.txt").getLines().toList
 
-  def anagrams(str: String): Iterator[String] = str.permutations.filter(_.split(" ").forall(dict.contains(_)))
+  //version working without spaces problems
+  def anagrams(str: String): Iterator[String] = for {
+    possibleAnagram <- str.permutations.map(listsFromDict).filter(_.nonEmpty)
+    word <- possibleAnagram
+  } yield word.mkString(" ")
 
-  def main(args: Array[String]): Unit = anagrams(words).foreach(println)
+  def listsFromDict(in: String): List[List[String]] =
+    if (in.isEmpty) List(List[String]())
+    else for {
+      word <- dict
+      if in.startsWith(word)
+      split <- listsFromDict(in.stripPrefix(word))
+    } yield word :: split
 
+  def main(args: Array[String]): Unit =
+    anagrams(words.toLowerCase().filter(('a' to 'z').contains(_))).foreach(println)
 
 }
