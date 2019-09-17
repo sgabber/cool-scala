@@ -17,7 +17,7 @@ abstract class Game extends Labyrinth {
       if !alreadySeen.contains(newPos)
     } yield (newPos, direction +: oldPath)
 
-
+    // prepending initial otherwise the recursive call would happen anyways and not lazily (I think)
     initial append from(newSolutionsIteration, newSolutionsIteration.map(_._1).toSet ++ alreadySeen)
   }
 
