@@ -6,9 +6,9 @@ import scala.io.Source
 
 object AnagramsRevenge {
 
-  val words = "panino"
+  val words = "oof arb"
 
-  val dict: List[String] = Source.fromResource("60000_parole_italiane.txt").getLines().toList
+  val dict: List[String] = Source.fromResource("660000_parole_italiane.txt").getLines().toList
 
   //version working without spaces problems
   def anagrams(str: String): Iterator[String] = for {
