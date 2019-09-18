@@ -6,7 +6,7 @@ import scala.io.Source
 
 object AnagramsRevenge {
 
-  val words = "oof arb"
+  val words = "nano felicissima"
 
   val dict: List[String] = Source.fromResource("660000_parole_italiane.txt").getLines().toList
 

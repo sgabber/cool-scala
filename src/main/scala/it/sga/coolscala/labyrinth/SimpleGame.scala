@@ -1,6 +1,6 @@
 package it.sga.coolscala.labyrinth
 
-object SampleGame extends Game {
+object SimpleGame extends Game {
 
   def terrain: String =
     """

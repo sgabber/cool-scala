@@ -27,6 +27,9 @@ class FiboTest extends FunSuite {
     assert(one == three)
   }
 
+  test("fib 10") {
+    println(fib(10))
+  }
 
   test("more numbers (only the fastest)") {
     println("numbers")

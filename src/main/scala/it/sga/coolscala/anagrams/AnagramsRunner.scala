@@ -6,7 +6,7 @@ import it.sga.coolscala._
 object AnagramsRunner {
   def main(args: Array[String]): Unit = {
     timeExec {
-      val input = if (args.isEmpty) "oof arb" else args.mkString("")
+      val input = "nano felicissima" // if (args.isEmpty) "nano felicissima" else args.mkString("")
       val value = input.filter(('a' to 'z').contains(_))
       val out = anagram(value, "./src/main/resources/660000_parole_italiane.txt")
         .filterNot(anagram => anagram.count(_.head.length < 3) > 2)

@@ -19,6 +19,9 @@ represented by prime numbers
 that multiplied give exactly the input phrase (prime number)
 then getting all those bigints  lists and converting them back to words.
 
+#### Anagrams revenge:
+A shorter, less efficient but concise program
+
 ### Chess:
 Common problems on the chessboard.
 - **HorseMoves**: after chosing one or more starting cells the algorithm computes all the possible positions of the horse piece after a given number of turns. 
@@ -33,3 +36,6 @@ Then I implemented two more versions that return the full fibonacci numbers' lis
 one faster (still recursive) and the last equally faster but tail recursive,
 therefore it behaves like an iterative one in terms of heap memory 
 
+### Labyrinth:
+A breadth first solver to find a labyrinth's shortest path with three sample labyrinths.
+(For labyrinths there are better algorithms I think)
