@@ -25,6 +25,6 @@ object AnagramsRevenge {
     } yield word :: split
 
   def main(args: Array[String]): Unit =
-    anagrams(words.toLowerCase().filter(('a' to 'z').contains(_))).foreach(println)
+    timeExec {anagrams(words.toLowerCase().filter(('a' to 'z').contains(_))).take(250).foreach(println)}
 
 }
