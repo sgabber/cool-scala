@@ -15,7 +15,7 @@ object Anagrams {
    *         the anagram is a list of lists of possible words in round brackets
    */
   def anagramToString(anagram: List[Vector[String]]): String =
-    anagram.map(word => word.mkString("[", ",", "]")).mkString("(", ",", ")")
+    anagram.map(word => word.mkString("[", ",", "]")).mkString("(", ",", ")") + "\n"
 
 
   /**
@@ -45,7 +45,7 @@ object Anagrams {
    * @return a list with the string representation of all the possible anagrams ["ba po","ab po"]
    */
   def getAnagramCombinations(singleAnagram: List[Vector[String]]): List[String] = {
-    singleAnagram.foldLeft(List[String]("=>")) { (acc, elem) =>
+    singleAnagram.foldLeft(List[String]("")) { (acc, elem) =>
       (acc cross elem).map(x => x._1 + " " + x._2).toList
     }
 
